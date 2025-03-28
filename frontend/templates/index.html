@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastAPI Frontend</title>
+</head>
+
+<body>
+    <form>
+        <label for="query">Input:</label>
+        <input type="text" id="query" name="query" />
+    </form>
+
+    <button id="insert">Insert</button>
+    <button id="get">Get</button>
+    <div id="result"></div>
+
+    <script>
+        const BACKEND_URL = "http://34.93.201.63:9567";
+        const input = document.getElementById("query");
+        const resultDiv = document.getElementById("result");
+
+        function insert() {
+            fetch(`${BACKEND_URL}/insert/${input.value}`)
+                .then(response => response.json())
+                .then(response => resultDiv.innerText = JSON.stringify(response, null, 2));
+        }
+
+        function get() {
+            fetch(`${BACKEND_URL}/get/${input.value}`)
+                .then(response => response.json())
+                .then(response => resultDiv.innerText = JSON.stringify(response, null, 2));
+        }
+
+        document.getElementById("insert").addEventListener("click", insert);
+        document.getElementById("get").addEventListener("click", get);
+    </script>
+</body>
+
+</html>
